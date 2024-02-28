@@ -12,14 +12,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string",
       "unique": true,
       "required": true
-    },
-    "Description": {
-      "type": "richtext",
-      "required": false
     },
     "categories": {
       "type": "relation",
@@ -27,19 +23,20 @@
       "target": "api::category.category",
       "mappedBy": "galleries"
     },
-    "Date": {
+    "date": {
       "type": "date",
       "required": true
     },
-    "img": {
-      "allowedTypes": [
-        "images",
-        "videos"
-      ],
+    "image": {
       "type": "media",
       "multiple": false,
       "required": true,
-      "private": true
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

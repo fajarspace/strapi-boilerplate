@@ -795,16 +795,17 @@ export interface ApiBlogBlog extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    Title: Attribute.String & Attribute.Required & Attribute.Unique;
-    img: Attribute.Media;
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    cover: Attribute.Media;
     categories: Attribute.Relation<
       'api::blog.blog',
       'manyToMany',
       'api::category.category'
     >;
-    Content: Attribute.RichText;
-    Description: Attribute.Text & Attribute.Required;
-    Date: Attribute.Date & Attribute.Required;
+    content: Attribute.RichText;
+    description: Attribute.Text & Attribute.Required;
+    date: Attribute.Date & Attribute.Required;
+    slug: Attribute.UID<'api::blog.blog', 'title'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -868,15 +869,15 @@ export interface ApiGalleryGallery extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    Title: Attribute.String & Attribute.Required & Attribute.Unique;
-    Description: Attribute.RichText;
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
     categories: Attribute.Relation<
       'api::gallery.gallery',
       'manyToMany',
       'api::category.category'
     >;
-    Date: Attribute.Date & Attribute.Required;
-    img: Attribute.Media & Attribute.Required & Attribute.Private;
+    date: Attribute.Date & Attribute.Required;
+    image: Attribute.Media & Attribute.Required;
+    description: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
