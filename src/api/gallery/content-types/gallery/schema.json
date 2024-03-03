@@ -37,6 +37,12 @@
     },
     "description": {
       "type": "text"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.seo",
+      "required": false
     }
   }
 }

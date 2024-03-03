@@ -737,7 +737,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -783,6 +782,43 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAuthorAuthor extends Schema.CollectionType {
+  collectionName: 'authors';
+  info: {
+    singularName: 'author';
+    pluralName: 'authors';
+    displayName: 'author';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    avatar: Attribute.Media & Attribute.Required;
+    blogs: Attribute.Relation<
+      'api::author.author',
+      'manyToMany',
+      'api::blog.blog'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::author.author',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::author.author',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiBlogBlog extends Schema.CollectionType {
   collectionName: 'blogs';
   info: {
@@ -796,16 +832,25 @@ export interface ApiBlogBlog extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String & Attribute.Required & Attribute.Unique;
-    cover: Attribute.Media;
     categories: Attribute.Relation<
       'api::blog.blog',
       'manyToMany',
       'api::category.category'
     >;
     content: Attribute.RichText;
-    description: Attribute.Text & Attribute.Required;
-    date: Attribute.Date & Attribute.Required;
     slug: Attribute.UID<'api::blog.blog', 'title'> & Attribute.Required;
+    description: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 50;
+        maxLength: 150;
+      }>;
+    cover: Attribute.Media;
+    authors: Attribute.Relation<
+      'api::blog.blog',
+      'manyToMany',
+      'api::author.author'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -828,7 +873,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    Title: Attribute.String & Attribute.Required & Attribute.Unique;
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
     blogs: Attribute.Relation<
       'api::category.category',
       'manyToMany',
@@ -878,6 +923,7 @@ export interface ApiGalleryGallery extends Schema.CollectionType {
     date: Attribute.Date & Attribute.Required;
     image: Attribute.Media & Attribute.Required;
     description: Attribute.Text;
+    seo: Attribute.Component<'shared.seo', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -902,6 +948,7 @@ export interface ApiTestimonialTestimonial extends Schema.CollectionType {
     singularName: 'testimonial';
     pluralName: 'testimonials';
     displayName: 'Testimonial';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -909,6 +956,7 @@ export interface ApiTestimonialTestimonial extends Schema.CollectionType {
   attributes: {
     User: Attribute.String & Attribute.Required;
     Comment: Attribute.Text;
+    profileimage: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -945,6 +993,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::author.author': ApiAuthorAuthor;
       'api::blog.blog': ApiBlogBlog;
       'api::category.category': ApiCategoryCategory;
       'api::gallery.gallery': ApiGalleryGallery;
