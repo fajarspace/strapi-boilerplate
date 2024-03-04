@@ -12,19 +12,20 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "User": {
+    "person": {
       "type": "string",
       "required": true
     },
-    "Comment": {
+    "description": {
       "type": "text"
     },
-    "profileimage": {
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     }
   }
 }

@@ -23,11 +23,7 @@
       "target": "api::category.category",
       "mappedBy": "galleries"
     },
-    "date": {
-      "type": "date",
-      "required": true
-    },
-    "image": {
+    "contentUrl": {
       "type": "media",
       "multiple": false,
       "required": true,
@@ -38,11 +34,11 @@
     "description": {
       "type": "text"
     },
-    "seo": {
-      "type": "component",
-      "repeatable": true,
-      "component": "shared.seo",
-      "required": false
+    "authors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::author.author",
+      "mappedBy": "galleries"
     }
   }
 }

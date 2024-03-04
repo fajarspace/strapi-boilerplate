@@ -794,12 +794,18 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    person: Attribute.String & Attribute.Required & Attribute.Unique;
     avatar: Attribute.Media & Attribute.Required;
     blogs: Attribute.Relation<
       'api::author.author',
       'manyToMany',
       'api::blog.blog'
+    >;
+    job: Attribute.String & Attribute.Required;
+    galleries: Attribute.Relation<
+      'api::author.author',
+      'manyToMany',
+      'api::gallery.gallery'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -902,6 +908,29 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
 }
 
+export interface ApiFaqFaq extends Schema.CollectionType {
+  collectionName: 'faqs';
+  info: {
+    singularName: 'faq';
+    pluralName: 'faqs';
+    displayName: 'FAQ';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    question: Attribute.Text & Attribute.Required;
+    answer: Attribute.Text & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::faq.faq', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::faq.faq', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGalleryGallery extends Schema.CollectionType {
   collectionName: 'galleries';
   info: {
@@ -920,10 +949,13 @@ export interface ApiGalleryGallery extends Schema.CollectionType {
       'manyToMany',
       'api::category.category'
     >;
-    date: Attribute.Date & Attribute.Required;
-    image: Attribute.Media & Attribute.Required;
+    contentUrl: Attribute.Media & Attribute.Required;
     description: Attribute.Text;
-    seo: Attribute.Component<'shared.seo', true>;
+    authors: Attribute.Relation<
+      'api::gallery.gallery',
+      'manyToMany',
+      'api::author.author'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -954,9 +986,9 @@ export interface ApiTestimonialTestimonial extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    User: Attribute.String & Attribute.Required;
-    Comment: Attribute.Text;
-    profileimage: Attribute.Media;
+    person: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    avatar: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -996,6 +1028,7 @@ declare module '@strapi/types' {
       'api::author.author': ApiAuthorAuthor;
       'api::blog.blog': ApiBlogBlog;
       'api::category.category': ApiCategoryCategory;
+      'api::faq.faq': ApiFaqFaq;
       'api::gallery.gallery': ApiGalleryGallery;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
     }

@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
+    "person": {
       "type": "string",
       "required": true,
       "unique": true
@@ -29,6 +29,16 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::blog.blog",
+      "inversedBy": "authors"
+    },
+    "job": {
+      "type": "string",
+      "required": true
+    },
+    "galleries": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::gallery.gallery",
       "inversedBy": "authors"
     }
   }
