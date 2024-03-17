@@ -39,6 +39,11 @@
       "relation": "manyToMany",
       "target": "api::author.author",
       "mappedBy": "galleries"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
     }
   }
 }

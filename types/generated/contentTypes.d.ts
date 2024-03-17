@@ -956,6 +956,7 @@ export interface ApiGalleryGallery extends Schema.CollectionType {
       'manyToMany',
       'api::author.author'
     >;
+    slug: Attribute.UID<'api::gallery.gallery', 'title'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
