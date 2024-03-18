@@ -13,7 +13,7 @@
     "start": "strapi start",
     "strapi": "strapi"
   },
-  "dependencies": {
+  "devDependencies": {
     "@strapi/plugin-cloud": "4.20.2",
     "@strapi/plugin-i18n": "4.20.2",
     "@strapi/plugin-users-permissions": "4.20.2",
@@ -24,6 +24,5 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
     "styled-components": "5.3.3"
-  },
-  "devDependencies": {}
+  }
 }
