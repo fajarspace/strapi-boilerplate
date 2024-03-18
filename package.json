@@ -26,5 +26,9 @@
     "@strapi/provider-upload-cloudinary": "^4.20.2",
     "@strapi/strapi": "4.20.2",
     "better-sqlite3": "8.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x",
+    "npm": ">=8.19.2"
   }
 }
