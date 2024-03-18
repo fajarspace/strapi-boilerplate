@@ -13,6 +13,7 @@
     "start": "strapi start",
     "strapi": "strapi"
   },
+  "dependencies": {},
   "devDependencies": {
     "@strapi/plugin-cloud": "4.20.2",
     "@strapi/plugin-i18n": "4.20.2",
