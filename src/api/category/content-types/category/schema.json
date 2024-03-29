@@ -17,12 +17,6 @@
       "required": true,
       "unique": true
     },
-    "blogs": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::blog.blog",
-      "inversedBy": "categories"
-    },
     "galleries": {
       "type": "relation",
       "relation": "manyToMany",

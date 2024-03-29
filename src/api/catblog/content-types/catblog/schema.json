@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "catblogs",
+  "info": {
+    "singularName": "catblog",
+    "pluralName": "catblogs",
+    "displayName": "Catblog",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "blogs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::blog.blog",
+      "inversedBy": "catblogs"
+    }
+  }
+}

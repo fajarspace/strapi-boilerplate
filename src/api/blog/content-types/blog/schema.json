@@ -17,12 +17,6 @@
       "required": true,
       "unique": true
     },
-    "categories": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::category.category",
-      "mappedBy": "blogs"
-    },
     "content": {
       "type": "richtext"
     },
@@ -49,6 +43,12 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::author.author",
+      "mappedBy": "blogs"
+    },
+    "catblogs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::catblog.catblog",
       "mappedBy": "blogs"
     }
   }

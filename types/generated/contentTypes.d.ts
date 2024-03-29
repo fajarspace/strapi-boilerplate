@@ -838,11 +838,6 @@ export interface ApiBlogBlog extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String & Attribute.Required & Attribute.Unique;
-    categories: Attribute.Relation<
-      'api::blog.blog',
-      'manyToMany',
-      'api::category.category'
-    >;
     content: Attribute.RichText;
     slug: Attribute.UID<'api::blog.blog', 'title'> & Attribute.Required;
     description: Attribute.Text &
@@ -857,12 +852,53 @@ export interface ApiBlogBlog extends Schema.CollectionType {
       'manyToMany',
       'api::author.author'
     >;
+    catblogs: Attribute.Relation<
+      'api::blog.blog',
+      'manyToMany',
+      'api::catblog.catblog'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCatblogCatblog extends Schema.CollectionType {
+  collectionName: 'catblogs';
+  info: {
+    singularName: 'catblog';
+    pluralName: 'catblogs';
+    displayName: 'Catblog';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    blogs: Attribute.Relation<
+      'api::catblog.catblog',
+      'manyToMany',
+      'api::blog.blog'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::catblog.catblog',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::catblog.catblog',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -880,11 +916,6 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String & Attribute.Required & Attribute.Unique;
-    blogs: Attribute.Relation<
-      'api::category.category',
-      'manyToMany',
-      'api::blog.blog'
-    >;
     galleries: Attribute.Relation<
       'api::category.category',
       'manyToMany',
@@ -1028,6 +1059,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::author.author': ApiAuthorAuthor;
       'api::blog.blog': ApiBlogBlog;
+      'api::catblog.catblog': ApiCatblogCatblog;
       'api::category.category': ApiCategoryCategory;
       'api::faq.faq': ApiFaqFaq;
       'api::gallery.gallery': ApiGalleryGallery;
