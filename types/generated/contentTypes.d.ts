@@ -879,7 +879,7 @@ export interface ApiCatblogCatblog extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
+    title: Attribute.Text;
     blogs: Attribute.Relation<
       'api::catblog.catblog',
       'manyToMany',
