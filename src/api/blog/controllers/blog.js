@@ -14,7 +14,7 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
       where: { slug: id },
       populate: {
         cover: true,
-        categories: true,
+        catblogs: true,
         authors: true,
       },
     });
